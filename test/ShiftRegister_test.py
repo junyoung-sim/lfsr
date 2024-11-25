@@ -1,0 +1,54 @@
+import random
+import cocotb
+from cocotb.clock import Clock
+from cocotb.triggers import *
+
+x = 'xxxxxxxx'
+
+async def check(dut, reset, enable, shift_in, seed, q):
+  dut.reset.value = reset
+  dut.enable.value = enable
+  dut.shift_in.value = shift_in
+  dut.seed.value = seed
+  
+  await RisingEdge(dut.clk)
+  assert dut.q.value == q, "FAILED"
+
+#=========================================================
+# test_reset
+#=========================================================
+
+@cocotb.test()
+async def test_reset(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  #                rst en in seed q
+  await check( dut, 1, 0, 0, 0,   x   )
+  await check( dut, 1, 0, 0, 255, 0   )
+  await check( dut, 0, 0, 0, 0,   255 )
+  await check( dut, 0, 0, 0, 0,   255 )
+
+#=========================================================
+# test_shift
+#=========================================================
+
+@cocotb.test()
+async def test_shift(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  #                rst en in seed q
+  await check( dut, 1, 0, 0, 0,   x           )
+  await check( dut, 0, 1, 1, 0,   0b0000_0000 )
+  await check( dut, 0, 1, 0, 0,   0b1000_0000 )
+  await check( dut, 0, 0, 1, 0,   0b0100_0000 )
+  await check( dut, 0, 0, 0, 0,   0b0100_0000 )
+  await check( dut, 0, 1, 0, 0,   0b0100_0000 )
+  await check( dut, 0, 1, 0, 0,   0b0010_0000 )
+  await check( dut, 0, 1, 0, 0,   0b0001_0000 )
+  await check( dut, 0, 1, 1, 0,   0b0000_1000 )
+  await check( dut, 0, 1, 0, 0,   0b1000_0100 )
+  await check( dut, 0, 1, 1, 0,   0b0100_0010 )
+  await check( dut, 0, 1, 0, 0,   0b1010_0001 )
+  await check( dut, 0, 1, 0, 0,   0b0101_0000 )
