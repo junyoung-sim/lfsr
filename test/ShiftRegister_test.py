@@ -52,3 +52,30 @@ async def test_shift(dut):
   await check( dut, 0, 1, 1, 0,   0b0100_0010 )
   await check( dut, 0, 1, 0, 0,   0b1010_0001 )
   await check( dut, 0, 1, 0, 0,   0b0101_0000 )
+
+#=========================================================
+# test_random
+#=========================================================
+
+@cocotb.test()
+async def test_random(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  await check( dut, 1, 0, 0, 0, x )
+
+  expected = 0
+  for i in range(1000):
+    rst      = random.randint(0, 1)
+    en       = random.randint(0, 1)
+    shift_in = random.randint(0, 1)
+    seed     = random.randint(0, 255)
+
+    await check( dut, rst, en, shift_in, seed, expected)
+
+    if rst:
+      expected = seed
+    elif en:
+      expected = (expected >> 1) | shift_in * pow(2,7)
+    else:
+      expected = expected
