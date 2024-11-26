@@ -5,11 +5,11 @@ from cocotb.triggers import *
 
 x = 'xxxxxxxx'
 
-async def check(dut, reset, enable, shift_in, seed, q):
-  dut.reset.value = reset
-  dut.enable.value = enable
+async def check(dut, rst, en, shift_in, seed, q):
+  dut.rst.value      = rst
+  dut.en.value       = en
   dut.shift_in.value = shift_in
-  dut.seed.value = seed
+  dut.seed.value     = seed
   
   await RisingEdge(dut.clk)
   assert dut.q.value == q, "FAILED"

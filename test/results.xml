@@ -1,6 +1,6 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1732568787" />
-    <testcase name="test_random" classname="ShiftRegister_test" file="/home/junyoung-sim/CES/lfsr/test/ShiftRegister_test.py" lineno="60" time="0.15264463424682617" sim_time_ns="10005.001" ratio_time="65544.40022976456" />
+    <property name="random_seed" value="1732589131" />
+    <testcase name="test_shift" classname="ShiftRegister_test" file="/home/junyoung-sim/CES/lfsr/test/ShiftRegister_test.py" lineno="36" time="0.0031452178955078125" sim_time_ns="125.001" ratio_time="39743.192412371136" />
   </testsuite>
 </testsuites>
