@@ -8,9 +8,36 @@
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
-S_0x5618097bfcf0 .scope package, "$unit" "$unit" 2 1;
+S_0x560dc5b51cf0 .scope package, "$unit" "$unit" 2 1;
  .timescale -9 -12;
-S_0x5618097bfe80 .scope module, "ShiftRegister" "ShiftRegister" 3 4;
+S_0x560dc5b51e80 .scope module, "LFSR" "LFSR" 3 6;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 1 "rst";
+    .port_info 2 /INPUT 1 "en";
+    .port_info 3 /INPUT 8 "tap";
+    .port_info 4 /INPUT 8 "seed";
+    .port_info 5 /OUTPUT 1 "out";
+P_0x560dc5b7c810 .param/l "nbits" 0 3 7, +C4<00000000000000000000000000001000>;
+o0x7f62f8ade078 .functor BUFZ 1, C4<z>; HiZ drive
+v0x560dc5ba72e0_0 .net "clk", 0 0, o0x7f62f8ade078;  0 drivers
+o0x7f62f8ade0a8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x560dc5ba73e0_0 .net "en", 0 0, o0x7f62f8ade0a8;  0 drivers
+v0x560dc5ba7480_0 .net "out", 0 0, L_0x560dc5ba7a20;  1 drivers
+o0x7f62f8ade108 .functor BUFZ 1, C4<z>; HiZ drive
+v0x560dc5ba7520_0 .net "rst", 0 0, o0x7f62f8ade108;  0 drivers
+o0x7f62f8ade138 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0x560dc5ba7610_0 .net "seed", 7 0, o0x7f62f8ade138;  0 drivers
+v0x560dc5ba7720_0 .var "shift_in", 0 0;
+v0x560dc5ba77f0_0 .net "shift_reg_q", 7 0, v0x560dc5ba6e30_0;  1 drivers
+o0x7f62f8ade2e8 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0x560dc5ba78c0_0 .net "tap", 7 0, o0x7f62f8ade2e8;  0 drivers
+E_0x560dc5b8faa0 .event edge, v0x560dc5ba6e30_0, v0x560dc5ba78c0_0, v0x560dc5ba7140_0;
+L_0x560dc5ba7a20 .part v0x560dc5ba6e30_0, 0, 1;
+S_0x560dc5b93130 .scope begin, "$ivl_for_loop1" "$ivl_for_loop1" 3 31, 3 31 0, S_0x560dc5b51e80;
+ .timescale -9 -12;
+v0x560dc5b93310_0 .var/2s "i", 31 0;
+S_0x560dc5ba65f0 .scope module, "shift_reg" "ShiftRegister" 3 20, 4 4 0, S_0x560dc5b51e80;
  .timescale -9 -12;
     .port_info 0 /INPUT 1 "clk";
     .port_info 1 /INPUT 1 "rst";
@@ -18,88 +45,125 @@ S_0x5618097bfe80 .scope module, "ShiftRegister" "ShiftRegister" 3 4;
     .port_info 3 /INPUT 1 "shift_in";
     .port_info 4 /INPUT 8 "seed";
     .port_info 5 /OUTPUT 8 "q";
-P_0x5618097c0010 .param/l "nbits" 0 3 5, +C4<00000000000000000000000000001000>;
-o0x7f977ba86048 .functor BUFZ 1, C4<z>; HiZ drive
-v0x561809811360_0 .net "clk", 0 0, o0x7f977ba86048;  0 drivers
-o0x7f977ba86078 .functor BUFZ 1, C4<z>; HiZ drive
-v0x561809811460_0 .net "en", 0 0, o0x7f977ba86078;  0 drivers
-v0x561809811540_0 .var "q", 7 0;
-o0x7f977ba860d8 .functor BUFZ 1, C4<z>; HiZ drive
-v0x561809811650_0 .net "rst", 0 0, o0x7f977ba860d8;  0 drivers
-o0x7f977ba86108 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
-v0x561809811730_0 .net "seed", 7 0, o0x7f977ba86108;  0 drivers
-o0x7f977ba86138 .functor BUFZ 1, C4<z>; HiZ drive
-v0x561809811880_0 .net "shift_in", 0 0, o0x7f977ba86138;  0 drivers
-E_0x5618097fdaa0 .event posedge, v0x561809811360_0;
-S_0x561809800f60 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 3 19, 3 19 0, S_0x5618097bfe80;
+P_0x560dc5ba67f0 .param/l "nbits" 0 4 5, +C4<00000000000000000000000000001000>;
+v0x560dc5ba6c50_0 .net "clk", 0 0, o0x7f62f8ade078;  alias, 0 drivers
+v0x560dc5ba6d50_0 .net "en", 0 0, o0x7f62f8ade0a8;  alias, 0 drivers
+v0x560dc5ba6e30_0 .var "q", 7 0;
+v0x560dc5ba6f10_0 .net "rst", 0 0, o0x7f62f8ade108;  alias, 0 drivers
+v0x560dc5ba6ff0_0 .net "seed", 7 0, o0x7f62f8ade138;  alias, 0 drivers
+v0x560dc5ba7140_0 .net "shift_in", 0 0, v0x560dc5ba7720_0;  1 drivers
+E_0x560dc5b763e0 .event posedge, v0x560dc5ba6c50_0;
+S_0x560dc5ba6950 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 4 19, 4 19 0, S_0x560dc5ba65f0;
  .timescale -9 -12;
-v0x561809801140_0 .var/2s "i", 31 0;
-S_0x561809800dd0 .scope module, "cocotb_iverilog_dump" "cocotb_iverilog_dump" 4 1;
+v0x560dc5ba6b50_0 .var/2s "i", 31 0;
+S_0x560dc5b92fa0 .scope module, "cocotb_iverilog_dump" "cocotb_iverilog_dump" 5 1;
  .timescale -9 -12;
-    .scope S_0x5618097bfe80;
+    .scope S_0x560dc5ba65f0;
 T_0 ;
-    %wait E_0x5618097fdaa0;
-    %load/vec4 v0x561809811650_0;
+    %wait E_0x560dc5b763e0;
+    %load/vec4 v0x560dc5ba6f10_0;
     %flag_set/vec4 8;
     %jmp/0xz  T_0.0, 8;
-    %load/vec4 v0x561809811730_0;
-    %assign/vec4 v0x561809811540_0, 0;
+    %load/vec4 v0x560dc5ba6ff0_0;
+    %assign/vec4 v0x560dc5ba6e30_0, 0;
     %jmp T_0.1;
 T_0.0 ;
-    %load/vec4 v0x561809811460_0;
+    %load/vec4 v0x560dc5ba6d50_0;
     %flag_set/vec4 8;
     %jmp/0xz  T_0.2, 8;
-    %fork t_1, S_0x561809800f60;
+    %fork t_1, S_0x560dc5ba6950;
     %jmp t_0;
-    .scope S_0x561809800f60;
+    .scope S_0x560dc5ba6950;
 t_1 ;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v0x561809801140_0, 0, 32;
+    %store/vec4 v0x560dc5ba6b50_0, 0, 32;
 T_0.4 ;
-    %load/vec4 v0x561809801140_0;
+    %load/vec4 v0x560dc5ba6b50_0;
     %cmpi/s 7, 0, 32;
     %jmp/0xz T_0.5, 5;
-    %load/vec4 v0x561809811540_0;
-    %load/vec4 v0x561809801140_0;
+    %load/vec4 v0x560dc5ba6e30_0;
+    %load/vec4 v0x560dc5ba6b50_0;
     %addi 1, 0, 32;
     %part/s 1;
     %ix/load 5, 0, 0;
-    %ix/getv/s 4, v0x561809801140_0;
-    %assign/vec4/off/d v0x561809811540_0, 4, 5;
+    %ix/getv/s 4, v0x560dc5ba6b50_0;
+    %assign/vec4/off/d v0x560dc5ba6e30_0, 4, 5;
     ; show_stmt_assign_vector: Get l-value for compressed += operand
-    %load/vec4 v0x561809801140_0;
+    %load/vec4 v0x560dc5ba6b50_0;
     %pushi/vec4 1, 0, 32;
     %add;
     %cast2;
-    %store/vec4 v0x561809801140_0, 0, 32;
+    %store/vec4 v0x560dc5ba6b50_0, 0, 32;
     %jmp T_0.4;
 T_0.5 ;
     %end;
-    .scope S_0x5618097bfe80;
+    .scope S_0x560dc5ba65f0;
 t_0 %join;
-    %load/vec4 v0x561809811880_0;
+    %load/vec4 v0x560dc5ba7140_0;
     %ix/load 4, 7, 0;
     %ix/load 5, 0, 0;
     %flag_set/imm 4, 0;
-    %assign/vec4/off/d v0x561809811540_0, 4, 5;
+    %assign/vec4/off/d v0x560dc5ba6e30_0, 4, 5;
     %jmp T_0.3;
 T_0.2 ;
-    %load/vec4 v0x561809811540_0;
-    %assign/vec4 v0x561809811540_0, 0;
+    %load/vec4 v0x560dc5ba6e30_0;
+    %assign/vec4 v0x560dc5ba6e30_0, 0;
 T_0.3 ;
 T_0.1 ;
     %jmp T_0;
     .thread T_0;
-    .scope S_0x561809800dd0;
+    .scope S_0x560dc5b51e80;
 T_1 ;
-    %vpi_call/w 4 3 "$dumpfile", "sim_build/ShiftRegister.fst" {0 0 0};
-    %vpi_call/w 4 4 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x5618097bfe80 {0 0 0};
+    %wait E_0x560dc5b8faa0;
+    %load/vec4 v0x560dc5ba77f0_0;
+    %parti/s 1, 0, 2;
+    %store/vec4 v0x560dc5ba7720_0, 0, 1;
+    %fork t_3, S_0x560dc5b93130;
+    %jmp t_2;
+    .scope S_0x560dc5b93130;
+t_3 ;
+    %pushi/vec4 1, 0, 32;
+    %store/vec4 v0x560dc5b93310_0, 0, 32;
+T_1.0 ;
+    %load/vec4 v0x560dc5b93310_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_1.1, 5;
+    %load/vec4 v0x560dc5ba78c0_0;
+    %load/vec4 v0x560dc5b93310_0;
+    %part/s 1;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.2, 8;
+    %load/vec4 v0x560dc5ba7720_0;
+    %load/vec4 v0x560dc5ba77f0_0;
+    %load/vec4 v0x560dc5b93310_0;
+    %part/s 1;
+    %xor;
+    %store/vec4 v0x560dc5ba7720_0, 0, 1;
+T_1.2 ;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v0x560dc5b93310_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v0x560dc5b93310_0, 0, 32;
+    %jmp T_1.0;
+T_1.1 ;
     %end;
-    .thread T_1;
+    .scope S_0x560dc5b51e80;
+t_2 %join;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0x560dc5b92fa0;
+T_2 ;
+    %vpi_call/w 5 3 "$dumpfile", "sim_build/LFSR.fst" {0 0 0};
+    %vpi_call/w 5 4 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x560dc5b51e80 {0 0 0};
+    %end;
+    .thread T_2;
 # The file index is used to find the file name in the following table.
-:file_names 5;
+:file_names 6;
     "N/A";
     "<interactive>";
     "-";
+    "../hw/LFSR.v";
     "./../hw/ShiftRegister.v";
     "sim_build/cocotb_iverilog_dump.v";

@@ -27,9 +27,11 @@ module LFSR#(
   );
 
   always @(*) begin
-    shift_in = shift_reg_q[0] & tap[0];
-    for(int i = 1; i < nbits; i++)
-      shift_in = shift_in ^ (shift_reg_q[i] & tap[i]);
+    shift_in = shift_reg_q[0];
+    for(int i = 1; i < nbits; i++) begin
+      if(tap[i])
+        shift_in = shift_in ^ shift_reg_q[i];
+    end
   end
 
   assign out = shift_reg_q[0];
