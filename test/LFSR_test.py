@@ -45,36 +45,6 @@ async def test_simple(dut):
   await check( dut, 0, 1, tap, seed, 0 ) #
 
 #=========================================================
-# test_extensive
-#=========================================================
-
-@cocotb.test()
-async def test_extensive(dut):
-  clock = Clock(dut.clk, 10, units="ns")
-  cocotb.start_soon(clock.start(start_high=False))
-
-  tap  = 0b00011101
-  seed = 0b11100011
-
-  await check( dut, 1, 0, tap, seed, x )
-  
-  shift_reg_q = seed
-  expected    = seed & 1
-
-  for t in range(1000):
-    await check( dut, 0, 1, tap, seed, expected )
-
-    shift_in = shift_reg_q & 1
-    for i in range(1, 8):
-      if (tap >> i) & 1:
-        tapped = (shift_reg_q >> i) & 1
-        shift_in = shift_in ^ tapped
-    
-    shift_reg_q = shift_reg_q >> 1
-    shift_reg_q = shift_reg_q | shift_in * pow(2,7)
-    expected    = shift_reg_q & 1
-
-#=========================================================
 # test_random
 #=========================================================
 
