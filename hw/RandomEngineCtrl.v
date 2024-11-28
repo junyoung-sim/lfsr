@@ -27,6 +27,6 @@ module RandomEngineCtrl (
   localparam STATE_SHIFT = 2'b01;
   localparam STATE_DONE  = 2'b10;
 
-endmodule;
+endmodule
 
 `endif
