@@ -83,17 +83,16 @@ async def test_random(dut):
   clock = Clock(dut.clk, 10, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
-  tap  = random.randint(0, 255)
   seed = random.randint(0, 255)
 
-  await check( dut, 1, 0, tap, seed, x )
+  await check( dut, 1, 0, 0, seed, x )
   
   shift_reg_q = seed
   expected    = seed & 1
 
-  for t in range(1000):
+  for t in range(10000):
     tap = random.randint(0, 255)
-    
+
     await check( dut, 0, 1, tap, seed, expected )
 
     shift_in = shift_reg_q & 1

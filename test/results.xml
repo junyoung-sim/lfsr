@@ -1,6 +1,6 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1732766916" />
-    <testcase name="test_random" classname="LFSR_test" file="/home/junyoung-sim/CES/lfsr/test/LFSR_test.py" lineno="81" time="0.19623947143554688" sim_time_ns="10005.001" ratio_time="50983.63202270474" />
+    <property name="random_seed" value="1732767520" />
+    <testcase name="test_random" classname="LFSR_test" file="/home/junyoung-sim/CES/lfsr/test/LFSR_test.py" lineno="81" time="0.4105255603790283" sim_time_ns="100005.001" ratio_time="243602.37376612506" />
   </testsuite>
 </testsuites>
