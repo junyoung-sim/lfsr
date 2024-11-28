@@ -9,47 +9,39 @@ module RandomEngineCtrl (
 
   // I/O Interface
 
-  (* keep=1 *) input  logic go,
-  (* keep=1 *) output logic done_val,
+  (* keep=1 *) input  logic start,
+  (* keep=1 *) input  logic stop,
+  (* keep=1 *) output logic active,
 
-  // Control Signals (RandomEngineCtrl -> RandomEngineDpath)
-
-  (* keep=1 *) output logic itr_init,
-  (* keep=1 *) output logic itr_en,
-  (* keep=1 *) output logic lfsr_en,
-
-  // Status Signals (RandomEngineDpath -> RandomEngineCtrl)
-
-  (* keep=1 *) input  logic done
+  // Control Signal (RandomEngineCtrl -> RandomEngineDpath)
+  
+  (* keep=1 *) output logic lfsr_en
 );
 
   // State Encodings
 
-  localparam STATE_WAIT  = 2'b00;
-  localparam STATE_SHIFT = 2'b01;
-  localparam STATE_DONE  = 2'b10;
+  localparam STATE_WAIT = 1'b0;
+  localparam STATE_LFSR = 1'b1;
 
   // State Register
 
-  logic [1:0] state;
-  logic [1:0] state_next;
+  logic state;
+  logic state_next;
 
-  Register#(2) rand_engine_state (
+  Register#(1) state_reg (
     .clk(clk),
     .rst(rst),
     .en(1'b1),
-    .d(state_next),
-    .q(state)
+    .d(state),
+    .q(state_next)
   );
 
   // State Transition Logic
 
   always @(*) begin
     case(state)
-      STATE_WAIT : state_next = (go ? STATE_SHIFT : STATE_WAIT);
-      STATE_SHIFT: state_next = (done ? STATE_DONE : STATE_SHIFT);
-      STATE_DONE : state_next = STATE_DONE;
-      default: state_next = STATE_WAIT;
+      STATE_WAIT: state_next = (start ? STATE_LFSR : STATE_WAIT);
+      STATE_LSFR: state_next = (stop  ? STATE_WAIT : STATE_LFSR);
     endcase
   end
 
@@ -58,28 +50,12 @@ module RandomEngineCtrl (
   always @(*) begin
     case(state)
       STATE_WAIT: begin
-        done_val = 0;
-        itr_init = go;
-        itr_en   = go;
-        lfsr_en  = 0;
+        active  = 0;
+        lfsr_en = 0;
       end
-      STATE_SHIFT: begin
-        done_val = 0;
-        itr_init = 0;
-        itr_en   = 1;
-        lfsr_en  = 1;
-      end
-      STATE_DONE: begin
-        done_val = 1;
-        itr_init = 0;
-        itr_en   = 0;
-        lfsr_en  = 0;
-      end
-      default: begin
-        done_val = 0;
-        itr_init = go;
-        itr_en   = go;
-        lfsr_en  = 0;
+      STATE_LFSR: begin
+        active  = 1;
+        lfsr_en = 1;
       end
     endcase
   end
