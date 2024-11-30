@@ -1,3 +1,1 @@
-# 8-bit Linear Feedback Shift Register
-
-
+# Random Bitstream Generator (RBG)
