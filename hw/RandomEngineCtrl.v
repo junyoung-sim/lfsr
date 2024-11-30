@@ -41,7 +41,7 @@ module RandomEngineCtrl (
   always @(*) begin
     case(state)
       STATE_WAIT: state_next = (start ? STATE_LFSR : STATE_WAIT);
-      STATE_LSFR: state_next = (stop  ? STATE_WAIT : STATE_LFSR);
+      STATE_LFSR: state_next = (stop  ? STATE_WAIT : STATE_LFSR);
     endcase
   end
 
