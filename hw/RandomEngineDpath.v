@@ -1,7 +1,7 @@
 `ifndef RANDOM_ENGINE_DPATH
 `define RANDOM_ENGINE_DPATH
 
-`include "../hw/LSFR.v"
+`include "../hw/LFSR.v"
 
 module RandomEngineDpath (
   (* keep=1 *) input  logic       clk,
