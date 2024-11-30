@@ -32,8 +32,8 @@ module RandomEngineCtrl (
     .clk(clk),
     .rst(rst),
     .en(1'b1),
-    .d(state),
-    .q(state_next)
+    .d(state_next),
+    .q(state)
   );
 
   // State Transition Logic

@@ -18,7 +18,18 @@ module RandomEngineDpath (
   (* keep=1 *) input  logic       lfsr_en
 );
 
+  logic lfsr_out;
 
+  LFSR lfsr (
+    .clk(clk),
+    .rst(rst),
+    .en(lfsr_en),
+    .tap(tap),
+    .seed(seed),
+    .out(lfsr_out)
+  );
+
+  assign out = lfsr_out;
 
 endmodule
 
