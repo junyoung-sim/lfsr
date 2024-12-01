@@ -50,12 +50,12 @@ module RandomEngineCtrl (
   always @(*) begin
     case(state)
       STATE_WAIT: begin
-        active  = 0;
-        lfsr_en = 0;
+        active  = start;
+        lfsr_en = start;
       end
       STATE_LFSR: begin
-        active  = 1;
-        lfsr_en = 1;
+        active  = ~stop;
+        lfsr_en = ~stop;
       end
     endcase
   end

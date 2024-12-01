@@ -29,4 +29,33 @@ async def test_reset(dut):
   await check( dut, 1,   0,   0,  0b00011101, 0b11100011, x,  x )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  1 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  1 )
-  
+
+#=================================================================
+# test_simple
+#=================================================================
+
+@cocotb.test()
+async def test_simple(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  #                rst start stop tap         seed        act out
+  await check( dut, 1,   0,   0,  0b00011101, 0b11100011, x,  x )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  1 )
+  await check( dut, 0,   1,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
+  await check( dut, 0,   0,   1,  0b00011101, 0b11100011, 0,  0 )
+  await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  0 )
