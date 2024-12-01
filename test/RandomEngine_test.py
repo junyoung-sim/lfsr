@@ -42,7 +42,7 @@ async def test_simple(dut):
   #                rst start stop tap         seed        act out
   await check( dut, 1,   0,   0,  0b00011101, 0b11100011, x,  x )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  1 )
-  await check( dut, 0,   1,   0,  0b00011101, 0b11100011, 1,  1 )
+  await check( dut, 0,   1,   0,  0b00011101, 0b11100011, 0,  1 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
@@ -57,5 +57,5 @@ async def test_simple(dut):
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  1 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
-  await check( dut, 0,   0,   1,  0b00011101, 0b11100011, 0,  0 )
+  await check( dut, 0,   0,   1,  0b00011101, 0b11100011, 1,  0 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  0 )
