@@ -16,6 +16,20 @@ async def check(dut, rst, start, stop, tap, seed, active, out):
   assert dut.active.value == active, "FAILED (active)"
   assert dut.out.value == out, "FAIELD (out)"
 
+def lfsr(shift_reg_q, tap):
+  shift_in = shift_reg_q & 1
+  for i in range(1, 8):
+    if (tap >> i) & 1:
+      tapped = (shift_reg_q >> i) & 1
+      shift_in = shift_in ^ tapped
+      
+  shift_reg_q = shift_reg_q >> 1
+  shift_reg_q = shift_reg_q | shift_in * pow(2,7)
+  
+  out = shift_reg_q & 1
+
+  return shift_reg_q, out
+
 #=================================================================
 # test_reset
 #=================================================================
@@ -59,3 +73,57 @@ async def test_simple(dut):
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 1,  0 )
   await check( dut, 0,   0,   1,  0b00011101, 0b11100011, 1,  0 )
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  0 )
+
+#=================================================================
+# test_random
+#=================================================================
+
+@cocotb.test()
+async def test_random(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  seed = random.randint(0, 255)
+
+  await check( dut, 1, 0, 0, 0, seed, x, x )
+
+  shift_reg_q = seed
+
+  state = 0
+  act   = 0
+  out   = seed & 1
+
+  for t in range(1000):
+    rst   = random.randint(0, 1)
+    start = random.randint(0, 1)
+    stop  = random.randint(0, 1)
+    tap   = random.randint(0, 255)
+    seed  = random.randint(0, 255)
+
+    await check( dut, rst, start, stop, tap, seed, act, out )
+
+    if rst:
+      state  = 0
+      act    = 0
+      out    = seed & 1
+      shift_reg_q = seed
+
+    elif (state == 0) & (start == 0):
+      state = 0
+      act   = 0
+      out   = out
+
+    elif (state == 0) & (start == 1):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 0):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 1):
+      state = 0
+      act   = 0
+      out   = out
