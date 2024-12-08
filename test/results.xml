@@ -1,6 +1,6 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1733284782" />
-    <testcase name="test_random" classname="RandomEngine_test" file="/home/junyoung-sim/CES/rbg/test/RandomEngine_test.py" lineno="81" time="0.24251818656921387" sim_time_ns="10005.001" ratio_time="41254.642142660945" />
+    <property name="random_seed" value="1733681779" />
+    <testcase name="test_random" classname="RandomEngine_test" file="/home/junyoung-sim/ECE/rbg/test/RandomEngine_test.py" lineno="219" time="158.5148959159851" sim_time_ns="10000005.001" ratio_time="63085.58538435485" />
   </testsuite>
 </testsuites>

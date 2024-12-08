@@ -38,7 +38,7 @@ module RandomEngineCtrl (
 
   // State Transition Logic
 
-  always @(*) begin
+  always_comb begin
     case(state)
       STATE_WAIT: state_next = (start ? STATE_LFSR : STATE_WAIT);
       STATE_LFSR: state_next = (stop  ? STATE_WAIT : STATE_LFSR);
@@ -47,7 +47,7 @@ module RandomEngineCtrl (
 
   // Output Logic
 
-  always @(*) begin
+  always_comb begin
     case(state)
       STATE_WAIT: begin
         active  = 0;

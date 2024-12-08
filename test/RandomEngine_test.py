@@ -75,6 +75,144 @@ async def test_simple(dut):
   await check( dut, 0,   0,   0,  0b00011101, 0b11100011, 0,  0 )
 
 #=================================================================
+# test_directed_tap_seed_1
+#=================================================================
+
+@cocotb.test()
+async def test_directed_tap_seed_1(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  tap  = 0b00011101
+  seed = 0b11100011
+
+  await check( dut, 1, 0, 0, tap, seed, x, x )
+
+  shift_reg_q = seed
+
+  state = 0
+  act   = 0
+  out   = seed & 1
+
+  for t in range(100000):
+    start = random.randint(0, 1)
+    stop  = random.randint(0, 1)
+
+    await check( dut, 0, start, stop, tap, seed, act, out )
+
+    if (state == 0) & (start == 0):
+      state = 0
+      act   = 0
+      out   = out
+
+    elif (state == 0) & (start == 1):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 0):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 1):
+      state = 0
+      act   = 0
+      out   = out
+
+#=================================================================
+# test_directed_tap_seed_2
+#=================================================================
+
+@cocotb.test()
+async def test_directed_tap_seed_2(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  tap  = 0b00011100
+  seed = 0b11100011
+
+  await check( dut, 1, 0, 0, tap, seed, x, x )
+
+  shift_reg_q = seed
+
+  state = 0
+  act   = 0
+  out   = seed & 1
+
+  for t in range(100000):
+    start = random.randint(0, 1)
+    stop  = random.randint(0, 1)
+
+    await check( dut, 0, start, stop, tap, seed, act, out )
+
+    if (state == 0) & (start == 0):
+      state = 0
+      act   = 0
+      out   = out
+
+    elif (state == 0) & (start == 1):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 0):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 1):
+      state = 0
+      act   = 0
+      out   = out
+
+#=================================================================
+# test_directed_lockup
+#=================================================================
+
+@cocotb.test()
+async def test_directed_lockup(dut):
+  clock = Clock(dut.clk, 10, units="ns")
+  cocotb.start_soon(clock.start(start_high=False))
+
+  seed = 0b00000000
+
+  await check( dut, 1, 0, 0, 0, seed, x, x )
+
+  shift_reg_q = seed
+
+  state = 0
+  act   = 0
+  out   = seed & 1
+
+  for t in range(100000):
+    tap   = random.randint(0, 255)
+    start = random.randint(0, 1)
+    stop  = random.randint(0, 1)
+
+    await check( dut, 0, start, stop, tap, seed, act, out )
+
+    if (state == 0) & (start == 0):
+      state = 0
+      act   = 0
+      out   = out
+
+    elif (state == 0) & (start == 1):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 0):
+      state = 1
+      act   = 1
+      shift_reg_q, out = lfsr(shift_reg_q, tap)
+    
+    elif (state == 1) & (stop == 1):
+      state = 0
+      act   = 0
+      out   = out
+
+#=================================================================
 # test_random
 #=================================================================
 
@@ -93,7 +231,7 @@ async def test_random(dut):
   act   = 0
   out   = seed & 1
 
-  for t in range(1000):
+  for t in range(1000000):
     rst   = random.randint(0, 1)
     start = random.randint(0, 1)
     stop  = random.randint(0, 1)

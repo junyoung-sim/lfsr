@@ -12,7 +12,7 @@ module ShiftRegister#(
   (* keep=1 *) output logic [nbits-1:0] q
 );
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if(rst)
       q <= seed;
     else if(en) begin

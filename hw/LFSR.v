@@ -26,7 +26,7 @@ module LFSR#(
     .q(shift_reg_q)
   );
 
-  always @(*) begin
+  always_comb begin
     shift_in = shift_reg_q[0];
     for(int i = 1; i < nbits; i++) begin
       if(tap[i])
