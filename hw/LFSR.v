@@ -1,17 +1,18 @@
 `ifndef LINEAR_FEEDBACK_SHIFT_REGISTER
 `define LINEAR_FEEDBACK_SHIFT_REGISTER
 
-`include "../hw/ShiftRegister.v"
+`include "ShiftRegister.v"
 
-module LFSR#(
+module LFSR
+#(
   parameter nbits=8
-) (
-  (* keep=1 *) input  logic             clk,
-  (* keep=1 *) input  logic             rst,
-  (* keep=1 *) input  logic             en,
-  (* keep=1 *) input  logic [nbits-1:0] tap,
-  (* keep=1 *) input  logic [nbits-1:0] seed,
-  (* keep=1 *) output logic             out
+)(
+  input  logic             clk,
+  input  logic             rst,
+  input  logic             en,
+  input  logic [nbits-1:0] tap,
+  input  logic [nbits-1:0] seed,
+  output logic             out
 );
 
   logic             shift_in;

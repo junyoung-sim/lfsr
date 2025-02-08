@@ -1,8 +1,27 @@
 TOPLEVEL_LANG ?= verilog
-VERILOG_SOURCES=../hw/*.v
+SIM := vcs
+
+PWD=$(shell pwd)
+export PYTHONPATH := $(PWD):$(PYTHONPATH)
+
+VERILOG_SOURCES=$(HOME)/c2s2/lfsr/hw/LFSR.v
+
+COMPILE_ARGS += +incdir+$(HOME)/c2s2/lfsr/hw/
+
+TOPLEVEL=LFSR
+MODULE=LFSR_test
 
 WAVES=1
 COVER=1
+
+ifeq ($(WAVES), 1)
+	EXTRA_ARGS += +vcs+dumpvars+waves.vcd
+endif
+
+ifeq ($(COVER), 1)
+	COMPILE_ARGS += -cm line+tgl
+	SIM_ARGS += -cm line+tgl
+endif
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 

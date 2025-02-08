@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE cov SYSTEM "ucdb_srcinfo.dtd">
+  <srcinfo name="/home/js2992/c2s2/lfsr/test/sim_build"  >
+    <ucapi_version  major_ver="13"  minor_ver="1"  patch_str="V-2023.12-SP2-1"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/LFSR.v"  id="0"  timestamp="1738879917"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/ShiftRegister.v"  id="1"  timestamp="1738521360"  />
+    </srcinfo>
