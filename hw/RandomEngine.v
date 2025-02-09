@@ -1,10 +1,11 @@
 `ifndef RANDOM_ENGINE
 `define RANDOM_ENGINE
 
-`include "../hw/RandomEngineCtrl.v"
-`include "../hw/RandomEngineDpath.v"
+`include "RandomEngineCtrl.v"
+`include "RandomEngineDpath.v"
 
-module RandomEngine (
+module RandomEngine
+(
   (* keep=1 *) input  logic       clk,
   (* keep=1 *) input  logic       rst,
   (* keep=1 *) input  logic       start,

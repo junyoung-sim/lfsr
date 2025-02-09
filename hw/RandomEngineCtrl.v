@@ -1,21 +1,22 @@
 `ifndef RANDOM_ENGINE_CTRL
 `define RANDOM_ENGINE_CTRL
 
-`include "../hw/Register.v"
+`include "Register.v"
 
-module RandomEngineCtrl (
-  (* keep=1 *) input  logic clk,
-  (* keep=1 *) input  logic rst,
+module RandomEngineCtrl
+(
+  input  logic clk,
+  input  logic rst,
 
   // I/O Interface
 
-  (* keep=1 *) input  logic start,
-  (* keep=1 *) input  logic stop,
-  (* keep=1 *) output logic active,
+  input  logic start,
+  input  logic stop,
+  output logic active,
 
-  // Control Signal (RandomEngineCtrl -> RandomEngineDpath)
+  // Control Signal
   
-  (* keep=1 *) output logic lfsr_en
+  output logic lfsr_en
 );
 
   // State Encodings
@@ -28,12 +29,13 @@ module RandomEngineCtrl (
   logic state;
   logic state_next;
 
-  Register#(1) state_reg (
-    .clk(clk),
-    .rst(rst),
-    .en(1'b1),
-    .d(state_next),
-    .q(state)
+  Register#(1) state_reg
+  (
+    .clk (clk),
+    .rst (rst),
+    .en  (1'b1),
+    .d   (state_next),
+    .q   (state)
   );
 
   // State Transition Logic

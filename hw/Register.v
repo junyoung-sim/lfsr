@@ -1,23 +1,22 @@
 `ifndef REGISTER
 `define REGISTER
 
-module Register#(
+module Register
+#(
   parameter nbits=8
-) (
-  (* keep=1 *) input  logic             clk,
-  (* keep=1 *) input  logic             rst,
-  (* keep=1 *) input  logic             en,
-  (* keep=1 *) input  logic [nbits-1:0] d,
-  (* keep=1 *) output logic [nbits-1:0] q
+)(
+  input  logic             clk,
+  input  logic             rst,
+  input  logic             en,
+  input  logic [nbits-1:0] d,
+  output logic [nbits-1:0] q
 );
 
   always_ff @(posedge clk) begin
     if(rst)
       q <= {nbits{1'b0}};
-    else if(en)
-      q <= d;
     else
-      q <= q;
+      q <= (en ? d : q);
   end
 
 endmodule
