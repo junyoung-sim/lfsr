@@ -1,9 +1,0 @@
-{"vcs1":{"timestamp_begin":1738880016.613364384, "rt":0.59, "ut":0.13, "st":0.32}}
-{"vcselab":{"timestamp_begin":1738880017.407809819, "rt":0.44, "ut":0.16, "st":0.22}}
-{"link":{"timestamp_begin":1738880018.017588261, "rt":0.40, "ut":0.10, "st":0.27}}
-{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1738880015.398330188}
-{"VCS_COMP_START_TIME": 1738880015.398330188}
-{"VCS_COMP_END_TIME": 1738880018.796485881}
-{"VCS_USER_OPTIONS": "-top LFSR -debug_access+r+w-memcbk -debug_region+cell +vpi -P pli.tab +define+COCOTB_SIM=1 -sverilog -timescale=1ns/1ps +vcs+dumpvars+waves.vcd -full64 -debug -load /classes/c2s2/easybuild-rhel/software/C2S2PythonPackages/2024.10-foss-2023b/lib/python3.11/site-packages/cocotb/libs/libcocotbvpi_vcs.so +incdir+/home/js2992/c2s2/lfsr/hw/ -cm line+tgl /home/js2992/c2s2/lfsr/hw/LFSR.v"}
-{"vcs1": {"peak_mem": 337208}}
-{"vcselab": {"peak_mem": 252740}}

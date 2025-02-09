@@ -1,2 +1,6 @@
 /home/js2992/c2s2/lfsr/hw/LFSR.v
+/home/js2992/c2s2/lfsr/hw/RandomEngine.v
+/home/js2992/c2s2/lfsr/hw/RandomEngineCtrl.v
+/home/js2992/c2s2/lfsr/hw/RandomEngineDpath.v
+/home/js2992/c2s2/lfsr/hw/Register.v
 /home/js2992/c2s2/lfsr/hw/ShiftRegister.v

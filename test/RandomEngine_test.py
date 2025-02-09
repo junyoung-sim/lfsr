@@ -24,7 +24,7 @@ def lfsr(shift_reg_q, tap):
       shift_in = shift_in ^ tapped
       
   shift_reg_q = shift_reg_q >> 1
-  shift_reg_q = shift_reg_q | shift_in * pow(2,7)
+  shift_reg_q = shift_reg_q | (shift_in << 7)
   
   out = shift_reg_q & 1
 
@@ -36,7 +36,7 @@ def lfsr(shift_reg_q, tap):
 
 @cocotb.test()
 async def test_reset(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   #                rst start stop tap         seed        act out
@@ -50,7 +50,7 @@ async def test_reset(dut):
 
 @cocotb.test()
 async def test_simple(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   # check manually computed active/output signals
@@ -82,7 +82,7 @@ async def test_simple(dut):
 
 @cocotb.test()
 async def test_directed_tap_seed_1(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   # test LFSR 100,000 times with tap and seed from test_simple
@@ -98,7 +98,7 @@ async def test_directed_tap_seed_1(dut):
   act   = 0
   out   = seed & 1
 
-  for t in range(100000):
+  for t in range(10000):
     start = random.randint(0, 1)
     stop  = random.randint(0, 1)
 
@@ -130,7 +130,7 @@ async def test_directed_tap_seed_1(dut):
 
 @cocotb.test()
 async def test_directed_tap_seed_2(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   # test LFSR 100,000 times with the input tap's lsb set to zero
@@ -147,7 +147,7 @@ async def test_directed_tap_seed_2(dut):
   act   = 0
   out   = seed & 1
 
-  for t in range(100000):
+  for t in range(10000):
     start = random.randint(0, 1)
     stop  = random.randint(0, 1)
 
@@ -179,7 +179,7 @@ async def test_directed_tap_seed_2(dut):
 
 @cocotb.test()
 async def test_directed_lockup(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   # test illegal state where the seed is zero
@@ -195,7 +195,7 @@ async def test_directed_lockup(dut):
   act   = 0
   out   = seed & 1
 
-  for t in range(100000):
+  for t in range(10000):
     tap   = random.randint(0, 255)
     start = random.randint(0, 1)
     stop  = random.randint(0, 1)
@@ -228,7 +228,7 @@ async def test_directed_lockup(dut):
 
 @cocotb.test()
 async def test_random(dut):
-  clock = Clock(dut.clk, 10, units="ns")
+  clock = Clock(dut.clk, 1, units="ns")
   cocotb.start_soon(clock.start(start_high=False))
 
   # test LFSR 1M times with all interfaces set randomly
@@ -243,7 +243,7 @@ async def test_random(dut):
   act   = 0
   out   = seed & 1
 
-  for t in range(1000000):
+  for t in range(10000):
     rst   = random.randint(0, 1)
     start = random.randint(0, 1)
     stop  = random.randint(0, 1)

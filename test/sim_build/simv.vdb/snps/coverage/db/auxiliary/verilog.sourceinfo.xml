@@ -2,6 +2,10 @@
 <!DOCTYPE cov SYSTEM "ucdb_srcinfo.dtd">
   <srcinfo name="/home/js2992/c2s2/lfsr/test/sim_build"  >
     <ucapi_version  major_ver="13"  minor_ver="1"  patch_str="V-2023.12-SP2-1"  />
-      <fileinfo name="/home/js2992/c2s2/lfsr/hw/LFSR.v"  id="0"  timestamp="1738879917"  />
-      <fileinfo name="/home/js2992/c2s2/lfsr/hw/ShiftRegister.v"  id="1"  timestamp="1738521360"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/RandomEngine.v"  id="0"  timestamp="1739114978"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/RandomEngineCtrl.v"  id="1"  timestamp="1739115078"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/Register.v"  id="2"  timestamp="1739115012"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/RandomEngineDpath.v"  id="3"  timestamp="1739115103"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/LFSR.v"  id="4"  timestamp="1739116157"  />
+      <fileinfo name="/home/js2992/c2s2/lfsr/hw/ShiftRegister.v"  id="5"  timestamp="1738980541"  />
     </srcinfo>

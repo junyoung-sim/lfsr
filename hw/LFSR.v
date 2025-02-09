@@ -18,13 +18,14 @@ module LFSR
   logic             shift_in;
   logic [nbits-1:0] shift_reg_q;
 
-  ShiftRegister shift_reg (
-    .clk(clk),
-    .rst(rst),
-    .en(en),
-    .shift_in(shift_in),
-    .seed(seed),
-    .q(shift_reg_q)
+  ShiftRegister shift_reg
+  (
+    .clk      (clk),
+    .rst      (rst),
+    .en       (en),
+    .shift_in (shift_in),
+    .seed     (seed),
+    .q        (shift_reg_q)
   );
 
   always_comb begin

@@ -4,12 +4,12 @@ SIM := vcs
 PWD=$(shell pwd)
 export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
-VERILOG_SOURCES=$(HOME)/c2s2/lfsr/hw/LFSR.v
+VERILOG_SOURCES=$(HOME)/c2s2/lfsr/hw/RandomEngine.v
 
 COMPILE_ARGS += +incdir+$(HOME)/c2s2/lfsr/hw/
 
-TOPLEVEL=LFSR
-MODULE=LFSR_test
+TOPLEVEL=RandomEngine
+MODULE=RandomEngine_test
 
 WAVES=1
 COVER=1

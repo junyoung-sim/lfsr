@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1739124808.094491876, "rt":0.57, "ut":0.15, "st":0.30}}
+{"vcselab":{"timestamp_begin":1739124808.854474928, "rt":0.43, "ut":0.17, "st":0.21}}
+{"link":{"timestamp_begin":1739124809.440959598, "rt":0.39, "ut":0.10, "st":0.27}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1739124806.936769230}
+{"VCS_COMP_START_TIME": 1739124806.936769230}
+{"VCS_COMP_END_TIME": 1739124810.200063213}
+{"VCS_USER_OPTIONS": "-top RandomEngine -debug_access+r+w-memcbk -debug_region+cell +vpi -P pli.tab +define+COCOTB_SIM=1 -sverilog -timescale=1ns/1ps +vcs+dumpvars+waves.vcd -full64 -debug -load /classes/c2s2/easybuild-rhel/software/C2S2PythonPackages/2024.10-foss-2023b/lib/python3.11/site-packages/cocotb/libs/libcocotbvpi_vcs.so +incdir+/home/js2992/c2s2/lfsr/hw/ -cm line+tgl /home/js2992/c2s2/lfsr/hw/RandomEngine.v"}
+{"vcs1": {"peak_mem": 337312}}
+{"vcselab": {"peak_mem": 252724}}
